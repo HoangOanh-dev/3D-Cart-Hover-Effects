@@ -7,15 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      # Kiểm tra lỗi chính tả trong code
-      - name: Lint HTML
-        uses: Cyb3r-Jak3/htmlhint-action@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          files: '**/*.html'
+          node-version: '18'
 
-      - name: Lint CSS
+      - name: Install linters
         run: |
-          npm install -g stylelint stylelint-config-standard
+          npm install -g htmlhint stylelint stylelint-config-standard
+
+      - name: Run HTMLHint
+        run: |
+          htmlhint "**/*.html"
+
+      - name: Run Stylelint
+        run: |
           stylelint "**/*.css"
