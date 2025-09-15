@@ -1,0 +1,76 @@
+:root{
+transform-style:preserve-3d; /* Cho phép các phần tử con có transformZ */
+transition: transform 600ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms;
+cursor:pointer;
+}
+
+
+.card__layer{
+position:relative;
+transform-style:preserve-3d;
+}
+
+
+.card__image img{
+display:block;
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:12px;
+transform:translateZ(0px); /* giá trị mặc định */
+transition: transform 600ms cubic-bezier(.2,.9,.2,1), filter 400ms;
+backface-visibility:hidden;
+}
+
+
+.card__content{
+margin-top:14px;
+transform:translateZ(0px);
+transition: transform 650ms cubic-bezier(.2,.9,.2,1);
+}
+
+
+.card__title{margin:0 0 6px 0;font-size:18px}
+.card__desc{margin:0 0 12px 0;opacity:0.9;font-size:14px}
+.card__btn{
+display:inline-block;
+padding:8px 14px;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+border:1px solid rgba(125,211,252,0.12);
+}
+
+
+.hint{margin-top:14px;opacity:0.6;font-size:13px}
+
+
+/* Hover hiệu ứng 3D: khi hover lên .scene thì card xoay nhẹ
+và các layer sẽ dịch theo trục Z để tạo cảm giác nổi lên */
+.scene:hover .card{
+transform: rotateX(6deg) rotateY(-10deg) translateY(-6px);
+box-shadow: 0 30px 60px rgba(2,6,23,0.8);
+}
+
+
+.scene:hover .card__image img{
+transform: translateZ(70px) scale(1.03);
+filter:brightness(1.02) saturate(1.05);
+}
+
+
+.scene:hover .card__content{
+transform: translateZ(36px);
+}
+
+
+/* Khi di chuyển chuột trên vùng scene, ta có thể theo dõi vị trí chuột
+để set rotate động bằng JS. Tuy nhiên ở bản CSS thuần này ta dùng
+hiệu ứng hover tĩnh để giữ file chỉ gồm HTML + CSS. */
+
+
+/* Responsive */
+@media (max-width:420px){
+.scene{width:92vw}
+.card__image img{height:180px}
+}
